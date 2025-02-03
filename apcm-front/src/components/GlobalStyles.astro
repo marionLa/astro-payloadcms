@@ -4,6 +4,11 @@ import 'open-props/style'
 
 <style is:global>
 
+    * {
+        box-sizing: border-box;
+        max-width: 100% ;
+    }
+
     html, body {
         margin: 0;
         padding: 0;
@@ -31,10 +36,12 @@ import 'open-props/style'
 
 
     .container {
-        max-width: 1200px; /* Ajustable selon tes besoins */
-        margin: auto; /* Centre le contenu */
-        padding: 0 var(--size-4); /* Ajoute un padding à gauche/droite */
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 var(--size-4);
     }
+
 
 
     .footer {
