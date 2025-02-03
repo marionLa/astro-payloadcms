@@ -16,7 +16,7 @@ const ContactForm = ({ cloudflareSiteKey }: { cloudflareSiteKey: string }) => {
   })
   const [captchaToken, setCaptchaToken] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false)
 
   const validationMessages = {
     name: 'Le nom doit contenir au moins 3 caractères',
@@ -68,7 +68,7 @@ const ContactForm = ({ cloudflareSiteKey }: { cloudflareSiteKey: string }) => {
     }
 
     setIsLoading(true)
-    setIsSuccess(false);
+    setIsSuccess(false)
 
     try {
       const response: any = await fetch(`${import.meta.env.PUBLIC_API_URL}/contact`, {
@@ -91,7 +91,7 @@ const ContactForm = ({ cloudflareSiteKey }: { cloudflareSiteKey: string }) => {
       console.log(status)
     } finally {
       setIsLoading(false)
-      setTimeout(() => setIsSuccess(false), 3000);
+      setTimeout(() => setIsSuccess(false), 3000)
     }
   }
 
@@ -131,12 +131,13 @@ const ContactForm = ({ cloudflareSiteKey }: { cloudflareSiteKey: string }) => {
                   style={{ border: !valid.fields.message ? '2px solid red' : '2px solid green' }}
                   required />
         {valid.messages.message && <p style={{ color: 'red' }}>{valid.messages.message}</p>}
-
-        <Turnstile siteKey={cloudflareSiteKey} onSuccess={setCaptchaToken} />
+        <div style={{display: 'flex', justifyContent: 'center'}}>
+          <Turnstile options={{ size: 'compact' }} siteKey={cloudflareSiteKey} onSuccess={setCaptchaToken} />
+        </div>
 
         <button type="submit" disabled={isLoading} style={{ opacity: isLoading ? 0.5 : 1 }}>
           {isLoading ? <span className="spinner"></span> : isSuccess ?
-            <span className="success-check">✔️</span> : "Envoyer"}
+            <span className="success-check">✔️</span> : 'Envoyer'}
         </button>
 
       </form>

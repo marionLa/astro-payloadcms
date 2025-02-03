@@ -1,5 +1,5 @@
 ---
-export const prerender = false;
+export const prerender = false
 import type { Association } from '../types'
 import { fetchAssociation } from '../fetch'
 import Footer from '../components/Footer.astro'
@@ -22,14 +22,18 @@ const association: Association | null = await fetchAssociation()
 </head>
 <body>
 <GlobalStyles />
+
+<div class="header-container">
+  <Menu association={association} />
+  <Banner association={association} />
+</div>
+
+
 <div class="page-container">
   <header>
-    <Menu association={association} />
-    <Banner association={association} />
   </header>
-
   <main class="content">
-      <slot />
+    <slot />
   </main>
 
   <Footer association={association} />

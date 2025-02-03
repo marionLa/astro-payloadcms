@@ -1,14 +1,15 @@
 ---
-const apiUrl = import.meta.env.PUBLIC_API_URL;
 const { association } = Astro.props;
 const currentPath = Astro.url.pathname;
 const store = import.meta.env.MEDIA_STORE
+
 ---
 
 <nav class={currentPath === "/" ? "navbar home-navbar" : "navbar"}>
   {association?.logo ? <img class="menu-logo" src={`${store}/${association?.logo?.filename}`} alt={association?.logo?.alt}>
   : null }
-  <ul>
+
+  <ul >
     <li><a href="/">Accueil</a></li>
     <li><a href="/articles">Actus</a></li>
     <li><a href="/contact">Contact</a></li>
