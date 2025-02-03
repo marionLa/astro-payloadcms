@@ -11,21 +11,6 @@ const Association: CollectionConfig = {
     admin: {
         useAsTitle: 'title',
     },
-    hooks: {
-        beforeChange: [
-            async ({ req, operation }) => {
-                if (operation === "create") {
-                    const existing = await req.payload.find({
-                        collection: "association",
-                    });
-
-                    if (existing.totalDocs > 0) {
-                        throw new Error("Une seule association est autorisée.");
-                    }
-                }
-            },
-        ],
-    },
     access: {
         read: () => true,
         create: () => true,
@@ -52,7 +37,7 @@ const Association: CollectionConfig = {
             required: true,
         },
         {
-            name: 'description_txt',
+            name: 'description',
             type: 'richText',
             editor: lexicalEditor({
                 features: ({defaultFeatures}) => [
@@ -61,7 +46,7 @@ const Association: CollectionConfig = {
                 ],
             }),
         },
-        lexicalHTML('description_txt', { name: 'description' }),
+        lexicalHTML('description', { name: 'description_html' }),
 
         {
             name: 'image',
@@ -80,7 +65,7 @@ const Association: CollectionConfig = {
             defaultValue: () => new Date(),
         },
         {
-            name: 'mentions_txt',
+            name: 'mentions',
             type: 'richText',
             editor: lexicalEditor({
                 features: ({defaultFeatures}) => [
@@ -89,7 +74,7 @@ const Association: CollectionConfig = {
                 ],
             }),
         },
-        lexicalHTML('mentions_txt', { name: 'mentions' }),
+        lexicalHTML('mentions', { name: 'mentions_html' }),
 
         {
             name: 'email',
@@ -105,6 +90,21 @@ const Association: CollectionConfig = {
             type: 'text',
         },
     ],
+    hooks: {
+        beforeChange: [
+            async ({ req, operation }) => {
+                if (operation === "create") {
+                    const existing = await req.payload.find({
+                        collection: "association",
+                    });
+
+                    if (existing.totalDocs > 0) {
+                        throw new Error("Une seule association est autorisée.");
+                    }
+                }
+            },
+        ],
+    }
 };
 
 export default Association;

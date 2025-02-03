@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro'
 import { fetchAssociation } from '../fetch'
 import Banner from '../components/Banner.astro'
+export const prerender = false;
 const { association } = Astro.props
 const store = import.meta.env.MEDIA_STORE
 ---
@@ -14,7 +15,7 @@ const store = import.meta.env.MEDIA_STORE
       <img class="logo" src={`${store}/${association?.logo?.filename}`} alt={association?.logo?.alt}>
       : null
     }  </a>
-    <div set:html={association?.description}></div>
+    <div set:html={association?.description_html}></div>
 
   </main>
 

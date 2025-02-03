@@ -75,7 +75,7 @@ export interface Association {
   id: string;
   title: string;
   subtitle: string;
-  description_txt?: {
+  description?: {
     root: {
       type: string;
       children: {
@@ -90,11 +90,11 @@ export interface Association {
     };
     [k: string]: unknown;
   } | null;
-  description?: string | null;
+  description_html?: string | null;
   image?: (string | null) | Media;
   logo?: (string | null) | Media;
   updatedAt: string;
-  mentions_txt?: {
+  mentions?: {
     root: {
       type: string;
       children: {
@@ -109,7 +109,7 @@ export interface Association {
     };
     [k: string]: unknown;
   } | null;
-  mentions?: string | null;
+  mentions_html?: string | null;
   email: string;
   facebook?: string | null;
   whatsapp?: string | null;
@@ -201,8 +201,8 @@ export interface Article {
  */
 export interface User {
   id: string;
-  password?: string | null;
-  role?: ('admin' | 'editor') | null;
+  firstName: string;
+  lastName: string;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -212,6 +212,7 @@ export interface User {
   hash?: string | null;
   loginAttempts?: number | null;
   lockUntil?: string | null;
+  password?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -336,13 +337,13 @@ export interface PayloadMigration {
 export interface AssociationSelect<T extends boolean = true> {
   title?: T;
   subtitle?: T;
-  description_txt?: T;
   description?: T;
+  description_html?: T;
   image?: T;
   logo?: T;
   updatedAt?: T;
-  mentions_txt?: T;
   mentions?: T;
+  mentions_html?: T;
   email?: T;
   facebook?: T;
   whatsapp?: T;
@@ -373,8 +374,8 @@ export interface ArticlesSelect<T extends boolean = true> {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
-  password?: T;
-  role?: T;
+  firstName?: T;
+  lastName?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;

@@ -39,8 +39,8 @@ export type Association = {
     id: string;
     title: string;
     subtitle:string;
-    description: string;
-    mentions:string;
+    description_html: string;
+    mentions_html:string;
     image?: Media;
     logo?: Media;
     date?: string;
