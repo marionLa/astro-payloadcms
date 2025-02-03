@@ -1,6 +1,10 @@
 ---
+import type { Association } from '../types'
+export const prerender = false;
+
 import Layout from '../layouts/Layout.astro'
-const { association } = Astro.props
+import { fetchAssociation } from '../fetch'
+const association: Association | null = await fetchAssociation()
 ---
 
 <Layout>

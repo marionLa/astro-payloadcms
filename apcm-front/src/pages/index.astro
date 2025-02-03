@@ -1,13 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro'
 import { fetchAssociation } from '../fetch'
-import Banner from '../components/Banner.astro'
+import type { Association } from '../types'
 export const prerender = false;
-const { association } = Astro.props
+const association: Association | null = await fetchAssociation()
 const store = import.meta.env.MEDIA_STORE
 ---
 
-<Layout>
+<Layout association={association}>
 
   <main id="content">
     Retrouvez-vous sur Whatsapp : <a href={association?.whatsapp} target="_blank">

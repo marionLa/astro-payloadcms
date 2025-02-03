@@ -6,8 +6,7 @@ import Footer from '../components/Footer.astro'
 import Banner from '../components/Banner.astro'
 import Menu from '../components/Menu.astro'
 import GlobalStyles from '../components/GlobalStyles.astro'
-const association: Association | null = await fetchAssociation()
-
+const { association } = Astro.props
 ---
 
 
@@ -30,7 +29,7 @@ const association: Association | null = await fetchAssociation()
   </header>
 
   <main class="content">
-    <slot />
+      <slot />
   </main>
 
   <Footer association={association} />
