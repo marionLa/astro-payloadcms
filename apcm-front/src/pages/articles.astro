@@ -2,6 +2,7 @@
 import type { Article } from "../types";
 import { fetchArticles } from "../fetch";
 import Layout from "../layouts/Layout.astro";
+import { formatDate } from '../utils'
 
 export const prerender = false;
 const articles: Article[] = await fetchArticles();
@@ -10,15 +11,6 @@ function getRecap(content: string, length: number) {
   return content.slice(0, length) + "[ ...]";
 }
 
-function formatDate(dateString: string | undefined) {
-  if(!dateString) return ""
-  const date = new Date(dateString);
-  return date.toLocaleDateString("fr-FR", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-}
 
 const store = import.meta.env.MEDIA_STORE
 ---
@@ -29,7 +21,8 @@ const store = import.meta.env.MEDIA_STORE
     {articles.length > 0 ? articles.map((article: Article) => (
       <li class="article-card">
         <a href={`/articles/${article.id}`} class="article-link">
-          <img src={`${store}/${article.image.filename}`} alt={article.title} class="article-image" />
+          {article.image ? <img src={`${store}/${article.image.filename}`} alt={article.title} class="article-image" />
+          : null}
           <div class="article-content">
             <h2>{article.title}</h2>
             <p class="article-date">{formatDate(article.date)}</p>
