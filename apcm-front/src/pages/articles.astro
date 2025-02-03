@@ -3,6 +3,7 @@ import type { Article } from "../types";
 import { fetchArticles } from "../fetch";
 import Layout from "../layouts/Layout.astro";
 
+export const prerender = false;
 const articles: Article[] = await fetchArticles();
 
 function getRecap(content: string, length: number) {
