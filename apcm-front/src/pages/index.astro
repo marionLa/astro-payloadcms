@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { fetchAssociation } from '../fetch'
+import Banner from '../components/Banner.astro'
+const { association } = Astro.props
+const store = import.meta.env.MEDIA_STORE
+---
+
+<Layout>
+
+  <main id="content">
+    Retrouvez-vous sur Whatsapp : <a href={association?.whatsapp} target="_blank">
+    {association?.image ?
+      <img class="logo" src={`${store}/${association?.logo?.filename}`} alt={association?.logo?.alt}>
+      : null
+    }  </a>
+    <div set:html={association?.description}></div>
+
+  </main>
+
+
+</Layout>

@@ -1,0 +1,8 @@
+---
+import Layout from '../layouts/Layout.astro'
+const { association } = Astro.props
+---
+
+<Layout>
+  <div set:html={association?.mentions}></div>
+</Layout>

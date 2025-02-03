@@ -1,0 +1,18 @@
+---
+const { association } = Astro.props
+const currentPath = Astro.url.pathname
+const store = import.meta.env.MEDIA_STORE
+
+---
+
+{ association?.image ?
+<div class={currentPath === '/' ? 'banner home-banner' : 'banner'}>
+  <img src={`${store}/${association?.image?.filename}`} alt="Bandeau du site">
+  <div class={currentPath === '/' ? 'overlay' : 'overlay-other'}>
+    <h1>{association?.title}</h1>
+    <h2>{association?.subtitle}</h2>
+    <a href="#content">
+      <button class="scroll-button">Découvrir</button>
+    </a>
+  </div>
+</div> : null}

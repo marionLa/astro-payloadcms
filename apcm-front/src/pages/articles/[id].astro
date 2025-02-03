@@ -1,0 +1,29 @@
+  ---
+  import type { Article } from '../../types'
+  import { fetchArticles } from '../../fetch'
+  import Layout from '../../layouts/Layout.astro'
+  export async function getStaticPaths() {
+    const articles: Article[] = await fetchArticles()
+    if(articles.length === 0) return []
+    return articles.map((article: Article) => ({
+      params: { id: article.id },
+      props: { article },
+    }))
+  }
+
+  const { article } = Astro.props
+  const store = import.meta.env.MEDIA_STORE
+  ---
+  <Layout>
+
+
+    <img src={`${store}/${article.image.filename}`} alt={article.title}
+         class="article-image" />
+
+    { article ?
+      <article>
+        <h1>{article.title}</h1>
+        <div set:html={article.content_html}></div>
+      </article> : null}
+
+  </Layout>
