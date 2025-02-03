@@ -192,6 +192,7 @@ export interface Article {
         id?: string | null;
       }[]
     | null;
+  published?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -366,6 +367,7 @@ export interface ArticlesSelect<T extends boolean = true> {
         tag?: T;
         id?: T;
       };
+  published?: T;
   updatedAt?: T;
   createdAt?: T;
 }

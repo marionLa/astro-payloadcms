@@ -26,19 +26,16 @@ const ContactForm = ({ cloudflareSiteKey }: { cloudflareSiteKey: string }) => {
 
 
   useEffect(() => {
-    console.log('Status updated:', status)
   }, [valid, status])
 
 
   const sanitizeInput = (input: string) => DOMPurify.sanitize(input)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    console.log(e.target.value + '  ' + e.target.name)
     setFormData({ ...formData, [e.target.name]: sanitizeInput(e.target.value) })
   }
 
   const validate = () => {
-    console.log('Avant validation :', formData)
 
     setValid((prevState) => ({
       fields: {
@@ -54,7 +51,6 @@ const ContactForm = ({ cloudflareSiteKey }: { cloudflareSiteKey: string }) => {
       },
     }))
 
-    console.log('Après validation :', valid) // Ne montre pas l’état mis à jour immédiatement
   }
 
 
@@ -77,18 +73,15 @@ const ContactForm = ({ cloudflareSiteKey }: { cloudflareSiteKey: string }) => {
         body: JSON.stringify({ ...formData, captcha: captchaToken }),
       })
       if (response.ok) {
-        console.log('response ok')
         setStatus({ success: true, message: 'Message envoyé avec succès !' })
-        setFormData({ name: '', email: '', message: '' }) // Réinitialiser le formulaire
+        setFormData({ name: '', email: '', message: '' })
         setIsSuccess(true)
       } else {
-        console.log('response pas ok')
         setStatus({ success: false, message: 'Erreur lors de l\'envoi du message.' })
         throw new Error('Erreur lors de l\'envoi du message.')
       }
     } catch (error) {
       setStatus({ success: false, message: 'Échec de l\'envoi. Réessayez plus tard.' })
-      console.log(status)
     } finally {
       setIsLoading(false)
       setTimeout(() => setIsSuccess(false), 3000)
