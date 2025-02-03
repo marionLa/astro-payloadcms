@@ -6,7 +6,7 @@ import Footer from '../components/Footer.astro'
 import Banner from '../components/Banner.astro'
 import Menu from '../components/Menu.astro'
 import GlobalStyles from '../components/GlobalStyles.astro'
-const { association } = Astro.props
+const association: Association | null = await fetchAssociation()
 ---
 
 
