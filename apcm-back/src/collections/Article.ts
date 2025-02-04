@@ -4,6 +4,7 @@ import { HTMLConverterFeature, lexicalEditor, lexicalHTML } from '@payloadcms/ri
 const FACEBOOK_ACCESS_TOKEN = process.env.FACEBOOK_ACCES_TOKEN as string
 const FACEBOOK_PAGE_ID = process.env.FACEBOOK_PAGE_ID as string
 const PAYLOAD_PUBLIC_SERVER_URL = process.env.PAYLOAD_PUBLIC_SERVER_URL as string
+const FRONT_URL = process.env.FRONT_URL;
 
 const extractLinks = (html: string): { text: string; links: string[] } => {
   const urlRegex = /https?:\/\/[^\s]+/g
@@ -130,7 +131,7 @@ const Article: CollectionConfig = {
 
           const postData: Record<string, any> = {
             message: `📰 *${doc.title}* \n\n${contentText}${formattedLinks}`,
-            link: `${PAYLOAD_PUBLIC_SERVER_URL}/articles/${doc.id}`,
+            link: `${FRONT_URL}/articles/${doc.id}`,
             access_token: FACEBOOK_ACCESS_TOKEN,
           }
           if (imageFbId) {
