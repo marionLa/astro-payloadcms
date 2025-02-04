@@ -81,7 +81,7 @@ const Article: CollectionConfig = {
     afterChange: [
       async ({ req, doc, operation }: { req: PayloadRequest; doc: any; operation: string }) => {
 
-        //if (operation !== 'create' && !doc.published) return
+        if (operation !== 'create' && !doc.published) return
         try {
           const imageId: string | undefined = doc.image
           let imageUrl: string | null = null
@@ -103,6 +103,9 @@ const Article: CollectionConfig = {
               `https://graph.facebook.com/${FACEBOOK_PAGE_ID}/photos`,
               {
                 method: 'POST',
+                headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded',
+                },
                 body: new URLSearchParams({
                   url: imageUrl,
                   published: 'false',
@@ -111,9 +114,11 @@ const Article: CollectionConfig = {
               },
             )
 
-            const imageData = await uploadImageResponse.json()
-            if (imageData.id) {
-              imageFbId = imageData.id
+            const uploadImageData = await uploadImageResponse.json()
+            console.log(uploadImageData)
+
+            if (uploadImageData.id) {
+              imageFbId = uploadImageData.id // ✅ Stocker l'ID de l'image pour le post
             }
           }
 
@@ -125,6 +130,7 @@ const Article: CollectionConfig = {
 
           const postData: Record<string, any> = {
             message: `📰 *${doc.title}* \n\n${contentText}${formattedLinks}`,
+            link: `${PAYLOAD_PUBLIC_SERVER_URL}/articles/${doc.id}`,
             access_token: FACEBOOK_ACCESS_TOKEN,
           }
           if (imageFbId) {
@@ -135,10 +141,12 @@ const Article: CollectionConfig = {
             `https://graph.facebook.com/${FACEBOOK_PAGE_ID}/feed`,
             {
               method: 'POST',
-              body: new URLSearchParams(postData),
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(postData),
             },
           )
-
           const postResult = await postResponse.json()
           if (!postResult.id) {
             console.error('Erreur lors de la publication Facebook', postResult)
