@@ -14,5 +14,82 @@ const store = import.meta.env.MEDIA_STORE
     <li><a href="/articles">Actus</a></li>
     <li><a href="/contact">Contact</a></li>
     <li><a href={association?.facebook} target="_blank"><img src="/facebook.png" height="36px" alt="facebook_logo"/></a></li>
+    <li><a href={association?.whatsapp} target="_blank"><img src="/whatsapp.png" height="36px" alt="whatsapp_logo"/></a></li>
+
   </ul>
 </nav>
+
+<style>
+    /* Navigation */
+    .navbar {
+        position: absolute;
+        top: 0;
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        background: transparent !important; /* 🔹 Supprime le fond */
+        justify-content: space-between;
+        padding: var(--size-2) var(--size-4);
+        z-index: 10;
+    }
+
+
+    .navbar ul {
+        list-style: none;
+        display: flex;
+        gap: var(--size-4);
+        padding: 0 var(--size-4);
+    }
+
+    .navbar li {
+        margin: 0;
+    }
+
+
+    .navbar a {
+        position: relative;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: bold;
+        padding: 10px 15px;
+        display: inline-block;
+        color: var(--gray-1);
+    }
+
+    .home-navbar a {
+        color: var(--gray-9);
+    }
+
+
+    .navbar a:hover {
+        color: var(--gray-7);
+    }
+
+    .navbar a::before,
+    .navbar a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: black;
+        transform: scaleX(0);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .navbar a::before {
+        top: 0; /* Barre en haut */
+        transform-origin: left;
+    }
+
+    .navbar a::after {
+        bottom: 0; /* Barre en bas */
+        transform-origin: left;
+    }
+
+    .navbar a:hover::before,
+    .navbar a:hover::after {
+        transform: scaleX(1);
+    }
+</style>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import DOMPurify from 'dompurify'
 import { Turnstile } from '@marsidev/react-turnstile'
+import './contactForm.css';
 
 
 const ContactForm = ({ cloudflareSiteKey }: { cloudflareSiteKey: string }) => {

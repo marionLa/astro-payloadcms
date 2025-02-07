@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro'
 import { fetchAssociation } from '../fetch'
 import type { Association } from '../types'
-export const prerender = false;
+export const prerender = false
 const association: Association | null = await fetchAssociation()
 const store = import.meta.env.MEDIA_STORE
 ---
@@ -10,11 +10,7 @@ const store = import.meta.env.MEDIA_STORE
 <Layout association={association}>
 
   <main id="content">
-    Retrouvez-vous sur Whatsapp : <a href={association?.whatsapp} target="_blank">
-    {association?.image ?
-      <img class="logo" src={`${store}/${association?.logo?.filename}`} alt={association?.logo?.alt}>
-      : null
-    }  </a>
+
     <div set:html={association?.description_html}></div>
 
   </main>

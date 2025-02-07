@@ -1,7 +1,19 @@
 ---
-const {association} = Astro.props
+const { association } = Astro.props
 ---
 
 
+<div class="footer"> © {association?.title} - {association?.subtitle} - {new Date().getFullYear()}. <a href="/mentions">
+  Mentions légales</a>.
+</div>
 
-<div class="footer"> © {association?.title} - {association?.subtitle} - {new Date().getFullYear()}. <a href="/mentions"> Mentions légales</a>.  </div>
+<style>
+    .footer {
+        position: relative; /* 🔹 Empêche qu'il soit en `absolute` et chevauche le contenu */
+        width: 100%;
+        background-color: var(--gray-4);
+        color: var(--gray-9);
+        text-align: center;
+        padding: var(--size-4);
+    }
+</style>
