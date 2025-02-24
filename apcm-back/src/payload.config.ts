@@ -30,7 +30,10 @@ export default buildConfig({
     },
   },
   collections: [...collections, media],
-  cors: [process.env.FRONT_URL || 'http://localhost:3000'],
+  cors: {
+    origins: [process.env.FRONT_URL || 'http://localhost:3000'],
+    headers: ['Content-Type', 'Authorization', 'x-api-key']
+  },
   editor: lexicalEditor({}),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -61,7 +64,7 @@ export default buildConfig({
     vercelBlobStorage({
       enabled: true,
       collections: {
-        media:true
+        media:true,
       },
       token: process.env.BLOB_READ_WRITE_TOKEN,
 

@@ -1,10 +1,15 @@
 import { useEffect, useState } from 'react'
 import DOMPurify from 'dompurify'
 import { Turnstile } from '@marsidev/react-turnstile'
-import './contactForm.css';
+import './contactForm.css'
+
+export type Keys = {
+  cloudflareSiteKey: string
+  payloadApiKey: string
+}
 
 
-const ContactForm = ({ cloudflareSiteKey }: { cloudflareSiteKey: string }) => {
+const ContactForm = ({ keys }: { keys: Keys }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -70,7 +75,10 @@ const ContactForm = ({ cloudflareSiteKey }: { cloudflareSiteKey: string }) => {
     try {
       const response: any = await fetch(`${import.meta.env.PUBLIC_API_URL}/contact`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'x-api-key': `${keys.payloadApiKey}`,
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({ ...formData, captcha: captchaToken }),
       })
       if (response.ok) {
@@ -125,8 +133,8 @@ const ContactForm = ({ cloudflareSiteKey }: { cloudflareSiteKey: string }) => {
                   style={{ border: !valid.fields.message ? '2px solid red' : '2px solid green' }}
                   required />
         {valid.messages.message && <p style={{ color: 'red' }}>{valid.messages.message}</p>}
-        <div style={{display: 'flex', justifyContent: 'center'}}>
-          <Turnstile options={{ size: 'compact' }} siteKey={cloudflareSiteKey} onSuccess={setCaptchaToken} />
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <Turnstile options={{ size: 'compact' }} siteKey={keys.cloudflareSiteKey} onSuccess={setCaptchaToken} />
         </div>
 
         <button type="submit" disabled={isLoading} style={{ opacity: isLoading ? 0.5 : 1 }}>

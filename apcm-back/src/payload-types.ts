@@ -14,7 +14,6 @@ export interface Config {
     association: Association;
     articles: Article;
     users: User;
-    actions: Action;
     membres: Membre;
     contact: Contact;
     media: Media;
@@ -27,7 +26,6 @@ export interface Config {
     association: AssociationSelect<false> | AssociationSelect<true>;
     articles: ArticlesSelect<false> | ArticlesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
-    actions: ActionsSelect<false> | ActionsSelect<true>;
     membres: MembresSelect<false> | MembresSelect<true>;
     contact: ContactSelect<false> | ContactSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
@@ -113,6 +111,7 @@ export interface Association {
   email: string;
   facebook?: string | null;
   whatsapp?: string | null;
+  helloasso?: string | null;
   createdAt: string;
 }
 /**
@@ -192,7 +191,6 @@ export interface Article {
         id?: string | null;
       }[]
     | null;
-  published?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -214,20 +212,6 @@ export interface User {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "actions".
- */
-export interface Action {
-  id: string;
-  title: string;
-  description: string;
-  image?: (string | null) | Media;
-  date?: string | null;
-  status?: ('en cours' | 'terminée' | 'à venir') | null;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -272,10 +256,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: string | User;
-      } | null)
-    | ({
-        relationTo: 'actions';
-        value: string | Action;
       } | null)
     | ({
         relationTo: 'membres';
@@ -348,6 +328,7 @@ export interface AssociationSelect<T extends boolean = true> {
   email?: T;
   facebook?: T;
   whatsapp?: T;
+  helloasso?: T;
   createdAt?: T;
 }
 /**
@@ -367,7 +348,6 @@ export interface ArticlesSelect<T extends boolean = true> {
         tag?: T;
         id?: T;
       };
-  published?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -387,19 +367,6 @@ export interface UsersSelect<T extends boolean = true> {
   hash?: T;
   loginAttempts?: T;
   lockUntil?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "actions_select".
- */
-export interface ActionsSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  image?: T;
-  date?: T;
-  status?: T;
-  updatedAt?: T;
-  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

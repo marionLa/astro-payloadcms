@@ -13,10 +13,11 @@ const Association: CollectionConfig = {
     },
     access: {
         read: () => true,
-        create: () => true,
+        create: ({ req }) => !!req.user,
         delete: () => false,
         update: async ({ req }) => {
-            // ✅ Autoriser uniquement si un document existe déjà
+            if (!req.user) return false;
+
             const { payload } = req;
             const associations = await payload.find({
                 collection: 'association',
@@ -24,6 +25,7 @@ const Association: CollectionConfig = {
 
             return associations.totalDocs > 0;
         },
+
     },
     fields: [
         {
@@ -87,6 +89,10 @@ const Association: CollectionConfig = {
         },
         {
             name: 'whatsapp',
+            type: 'text',
+        },
+        {
+            name: 'helloasso',
             type: 'text',
         },
     ],

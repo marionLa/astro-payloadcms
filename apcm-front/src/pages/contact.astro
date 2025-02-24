@@ -1,9 +1,16 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import ContactForm from "../components/ContactForm"
+import Layout from '../layouts/Layout.astro'
+import ContactForm from '../components/ContactForm'
+import type { Keys } from '../components/ContactForm'
 const site_key = import.meta.env.CLOUDFARE_SITE_KEY
+const payloadApiKey = import.meta.env.PAYLOAD_API_KEY
+
+const keys: Keys = {
+  payloadApiKey: payloadApiKey,
+  cloudflareSiteKey: site_key,
+}
 ---
 
 <Layout>
-     <ContactForm cloudflareSiteKey={site_key} client:load />
+  <ContactForm keys={keys} client:load />
 </Layout>

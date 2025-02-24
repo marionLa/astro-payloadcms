@@ -8,18 +8,24 @@
   const article = await response.json();
 
   const store = import.meta.env.MEDIA_STORE
+
+  const fixedContentHtml = article.content_html?.replace(
+    /src="\/api\/media\/file/g,
+    `src="${store}`
+  );
+
+
   ---
   <Layout>
 
-    {article?.image ? <img src={`${store}/${article.image.filename}`} alt={article.title}
-                          class="article-image" /> : null}
+
 
 
     { article ?
 
       <article>
         <h1>{article.title}</h1>
-        <div set:html={article.content_html}></div>
+        <div set:html={fixedContentHtml}></div>
       </article> : null}
 
   </Layout>
