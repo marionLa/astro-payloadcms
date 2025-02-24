@@ -9,10 +9,15 @@
 
   const store = import.meta.env.MEDIA_STORE
 
+
   const fixedContentHtml = article.content_html?.replace(
-    /src="\/api\/media\/file/g,
+    /srcset="\/api\/media\/file\//g,
+    `srcset="${store}`
+  ).replace(
+    /src="\/api\/media\/file\//g,
     `src="${store}`
   );
+
 
 
   ---
