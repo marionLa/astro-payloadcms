@@ -25,7 +25,6 @@ const store = import.meta.env.MEDIA_STORE
           : null}
           <div class="article-content">
             <h2>{article.title}</h2>
-            <p class="article-date">{formatDate(article.date)}</p>
             <div class="rich-text" set:html={getRecap(article.content_html, 200)}></div>
           </div>
         </a>
