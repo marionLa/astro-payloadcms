@@ -14,6 +14,7 @@ import dotenv from "dotenv";
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 dotenv.config();
 
+
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 export default buildConfig({
