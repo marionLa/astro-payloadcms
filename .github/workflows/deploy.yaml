@@ -7,10 +7,7 @@ on:
     branches:
       - main
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+
 
 jobs:
   build-and-deploy:
@@ -22,9 +19,9 @@ jobs:
       - name: FTP Deploy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ vars.HOST }}
+          server: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           local-dir: ./dist/
-          server-dir: ${{ vars.PATH }}
+          server-dir: ${{ secrtets.PATH }}
 

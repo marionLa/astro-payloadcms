@@ -10,7 +10,6 @@ import Users from "@/collections/User";
 import collections from "@/collections";
 import media from "@/collections/Media";
 import {nodemailerAdapter} from "@payloadcms/email-nodemailer";
-
 import dotenv from "dotenv";
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 dotenv.config();
