@@ -13,7 +13,6 @@
     "@marsidev/react-turnstile": "^1.1.0",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
-    "apcm-front": "link:",
     "astro": "^5.11.0",
     "dompurify": "^3.2.6",
     "open-props": "^1.7.15",
