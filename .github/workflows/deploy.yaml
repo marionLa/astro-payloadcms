@@ -1,22 +1,31 @@
 name: Deploy Astro to o2switch
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - 'apcm-back/**'
     branches:
       - main
 
-
-
 jobs:
-  build-and-deploy:
+  deploy-backend:
+    name: Deploy PayloadCMS (Backend)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: FTP Deploy
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies & build Payload (optional)
+        working-directory: ./apcm-back
+        run: |
+          pnpm install
+          pnpm run build
+
+      - name: Deploy backend via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.HOST }}
@@ -24,4 +33,5 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           local-dir: ./dist/
           server-dir: ${{ secrets.PATH }}
+
 
