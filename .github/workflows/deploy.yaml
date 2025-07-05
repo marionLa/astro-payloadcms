@@ -22,9 +22,9 @@ jobs:
       - name: FTP Deploy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ env.HOST }}
+          server: ${{ vars.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           local-dir: ./dist/
-          server-dir: ${{ env.PATH }}
+          server-dir: ${{ vars.PATH }}
 
