@@ -2,6 +2,8 @@ name: Deploy Astro to o2switch
 
 on:
   push:
+    paths:
+      - 'apcm-back/**'
     branches:
       - main
 
